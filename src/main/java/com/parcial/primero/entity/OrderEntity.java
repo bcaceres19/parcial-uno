@@ -5,17 +5,14 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * Entity representing an order.
+ * Entity representing an orders.
  * <p>
  * This entity maps to the "order" table in the database.
  * </p>
  *
- * @author YourName
- * @version 1.0
- * @since 2025-03-05
  */
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @Data
 public class OrderEntity {
 

@@ -137,13 +137,13 @@ Adminer provides an interface to interact with the MySQL database.
 | `GET`  | `/api/categories/{id}` | Retrieve a category by ID |
 | `DELETE` | `/api/categories/{id}` | Delete a category by ID |
 
-### **📌 Customer API (`/api/customers`)**
-| Method | Endpoint          | Description            |
-|--------|-------------------|------------------------|
-| `POST` | `/api/customers`  | Create a new customer |
-| `PUT`  | `/api/customers`  | Update an existing customer |
-| `GET`  | `/api/customers/{id}` | Retrieve a customer by ID |
-| `DELETE` | `/api/customers/{id}` | Delete a customer by ID |
+### **📌 Customer API (`/api/clients`)**
+| Method | Endpoint          | Description          |
+|--------|-------------------|----------------------|
+| `POST` | `/api/clients`  | Create a new client |
+| `PUT`  | `/api/clients`  | Update an existing client |
+| `GET`  | `/api/clients/{id}` | Retrieve a client by ID |
+| `DELETE` | `/api/clients/{id}` | Delete a client by ID |
 
 ### **📌 Product API (`/api/products`)**
 | Method | Endpoint         | Description          |

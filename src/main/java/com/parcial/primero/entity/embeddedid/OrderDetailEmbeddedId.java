@@ -1,5 +1,6 @@
 package com.parcial.primero.entity.embeddedid;
 
+import com.parcial.primero.util.Utils;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.Data;
@@ -11,9 +12,6 @@ import java.time.LocalDateTime;
  * This class represents the composite primary key for the "order_detail" table.
  * </p>
  *
- * @author YourName
- * @version 1.0
- * @since 2025-03-05
  */
 @Embeddable
 @Data
@@ -36,4 +34,11 @@ public class OrderDetailEmbeddedId {
      */
     @Column(name = "registration_date")
     private LocalDateTime registrationDate = LocalDateTime.now();
+
+    /**
+     * Code of the order detail
+     */
+    @Column(name = "code_order_detail")
+    private String code = Utils.generateRandomCode(10);
+
 }

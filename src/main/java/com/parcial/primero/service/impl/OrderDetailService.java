@@ -19,10 +19,7 @@ import java.util.List;
  * <p>
  * This class handles order detail creation, updating, deletion, and retrieval.
  * </p>
- *
- * @author YourName
- * @version 1.0
- * @since 2025-03-05
+
  */
 @RequiredArgsConstructor
 @Service
@@ -54,11 +51,21 @@ public class OrderDetailService implements IOrderDetailService {
     public GeneralMessageDto updateOrderDetail(OrderDetailDto orderDetailDto) {
         GeneralMessageDto message = new GeneralMessageDto();
         try {
-            OrderDetailDto existingOrderDetail = orderDetailMapper.mapToDto(orderDetailRepository.findById(orderDetailDto.getOrderDetailEmbeddedId()).orElse(null));
+            OrderDetailEmbeddedId orderDetailEmbeddedId = new OrderDetailEmbeddedId();
+            orderDetailEmbeddedId.setOrderFk(orderDetailDto.getOrderFk().getId());
+            orderDetailEmbeddedId.setProductFk(orderDetailDto.getProductFk().getId());
+            orderDetailDto.setOrderDetailEmbeddedId(orderDetailEmbeddedId);
+            OrderDetailDto existingOrderDetail = orderDetailMapper.mapToDto(orderDetailRepository.findAllByOrderDetailEmbeddedId_productFkAndOrderDetailEmbeddedId_orderFkAndOrderDetailEmbeddedId_Code(orderDetailEmbeddedId.getProductFk(), orderDetailEmbeddedId.getOrderFk(), orderDetailDto.getCode()));
             if (existingOrderDetail != null) {
                 message.setMessage("Order detail successfully updated.");
                 OrderDetailDto updatedOrderDetail = Utils.compareOldNewObject(existingOrderDetail, orderDetailDto);
-                message.setObject(orderDetailMapper.mapToDto(orderDetailRepository.save(orderDetailMapper.mapToEntity(updatedOrderDetail))));
+                orderDetailRepository.updateOrderDetail(
+                        updatedOrderDetail.getOrderFk().getId(),
+                        updatedOrderDetail.getProductFk().getId(),
+                        updatedOrderDetail.getQuantity(),
+                        updatedOrderDetail.getUnitPrice(),
+                        updatedOrderDetail.getCode()
+                );
             } else {
                 message.setMessage("Order detail not found.");
                 message.setError(true);
@@ -75,7 +82,7 @@ public class OrderDetailService implements IOrderDetailService {
     public GeneralMessageDto deleteOrderDetail(OrderDetailEmbeddedId orderDetailId) {
         GeneralMessageDto message = new GeneralMessageDto();
         try {
-            OrderDetailDto orderDetailDto = orderDetailMapper.mapToDto(orderDetailRepository.findById(orderDetailId).orElse(null));
+            OrderDetailDto orderDetailDto = orderDetailMapper.mapToDto(orderDetailRepository.findAllByOrderDetailEmbeddedId_productFkAndOrderDetailEmbeddedId_orderFkAndOrderDetailEmbeddedId_Code(orderDetailId.getProductFk(), orderDetailId.getOrderFk(), orderDetailId.getCode()));
             if (orderDetailDto != null) {
                 message.setMessage("Order detail successfully deleted.");
                 orderDetailRepository.delete(orderDetailMapper.mapToEntity(orderDetailDto));
@@ -95,7 +102,7 @@ public class OrderDetailService implements IOrderDetailService {
     public GeneralMessageDto getOrderDetail(OrderDetailEmbeddedId orderDetailId) {
         GeneralMessageDto message = new GeneralMessageDto();
         try {
-            List<OrderDetailDto> orderDetailDto = orderDetailMapper.mapToDto(Arrays.asList(orderDetailRepository.findById(orderDetailId).orElse(null)));
+            List<OrderDetailDto> orderDetailDto = orderDetailMapper.mapToDto(Arrays.asList(orderDetailRepository.findAllByOrderDetailEmbeddedId_productFkAndOrderDetailEmbeddedId_orderFkAndOrderDetailEmbeddedId_Code(orderDetailId.getProductFk(), orderDetailId.getOrderFk(), orderDetailId.getCode())));
             message.setMessage("Order detail retrieved successfully.");
             message.setObject(orderDetailDto);
         } catch (Exception ex) {

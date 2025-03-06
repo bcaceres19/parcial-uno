@@ -15,10 +15,6 @@ import org.springframework.stereotype.Service;
  * <p>
  * This class handles product creation, updating, deletion, and retrieval.
  * </p>
- *
- * @author YourName
- * @version 1.0
- * @since 2025-03-05
  */
 @Service
 @RequiredArgsConstructor

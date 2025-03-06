@@ -10,9 +10,6 @@ import java.math.BigDecimal;
  * This entity maps to the "product" table in the database.
  * </p>
  *
- * @author YourName
- * @version 1.0
- * @since 2025-03-05
  */
 @Entity
 @Table(name = "product")

@@ -1,12 +1,18 @@
 package com.parcial.primero.util;
 
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 
 /**
  * Utility class for comparing two objects and maintaining non-null values.
  */
 public class Utils {
+
+    private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    private static final SecureRandom RANDOM = new SecureRandom();
+
 
     /**
      * Compares two objects and returns a new object containing the differences.
@@ -89,6 +95,23 @@ public class Utils {
                 type.equals(Character.class) ||
                 type.equals(Short.class) ||
                 type.equals(Byte.class) ||
-                type.equals(LocalDateTime.class); // Added LocalDateTime support
+                type.equals(LocalDateTime.class) ||
+                type.equals(BigDecimal.class); // Added LocalDateTime support
     }
+
+
+    /**
+     * Generates a random alphanumeric code of the specified length.
+     *
+     * @param length The desired length of the generated code.
+     * @return A randomly generated alphanumeric string.
+     */
+    public static String generateRandomCode(int length) {
+        StringBuilder sb = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            sb.append(CHARACTERS.charAt(RANDOM.nextInt(CHARACTERS.length())));
+        }
+        return sb.toString();
+    }
+
 }

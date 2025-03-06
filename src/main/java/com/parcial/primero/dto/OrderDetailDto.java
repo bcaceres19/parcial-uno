@@ -37,4 +37,7 @@ public class OrderDetailDto {
      * The unit price of the product in the order.
      */
     private BigDecimal unitPrice;
+
+    private String code;
+
 }

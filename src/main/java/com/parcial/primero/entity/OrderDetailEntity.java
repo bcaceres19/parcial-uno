@@ -1,6 +1,7 @@
 package com.parcial.primero.entity;
 
 import com.parcial.primero.entity.embeddedid.OrderDetailEmbeddedId;
+import com.parcial.primero.util.Utils;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.math.BigDecimal;
@@ -49,4 +50,6 @@ public class OrderDetailEntity {
      */
     @Column(nullable = false)
     private BigDecimal unitPrice;
+
+
 }

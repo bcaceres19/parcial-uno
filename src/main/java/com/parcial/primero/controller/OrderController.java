@@ -13,10 +13,6 @@ import org.springframework.web.bind.annotation.*;
  * <p>
  * This controller provides endpoints to create, update, delete, and retrieve orders.
  * </p>
- *
- * @author YourName
- * @version 1.0
- * @since 2025-03-05
  */
 @RestController
 @RequestMapping("/api/orders")

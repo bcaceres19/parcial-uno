@@ -51,14 +51,16 @@ public class OrderDetailController {
      *
      * @param productId The ID of the associated product.
      * @param orderId   The ID of the associated order.
+     * @param code The code of the detail order
      * @return A response entity containing a general message with status information.
      */
     @DeleteMapping
     public ResponseEntity<GeneralMessageDto> deleteOrderDetail(
-            @RequestParam(required = false) Long productId, @RequestParam(required = false) Long orderId) {
+            @RequestParam() Long productId, @RequestParam() Long orderId, @RequestParam String code) {
         OrderDetailEmbeddedId orderDetailId = new OrderDetailEmbeddedId();
         orderDetailId.setOrderFk(orderId);
         orderDetailId.setProductFk(productId);
+        orderDetailId.setCode(code);
         GeneralMessageDto response = orderDetailService.deleteOrderDetail(orderDetailId);
         return ResponseEntity.status(response.isError() ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.OK).body(response);
     }
@@ -68,14 +70,16 @@ public class OrderDetailController {
      *
      * @param productId The ID of the associated product.
      * @param orderId   The ID of the associated order.
+     * @param code The code of the detail order
      * @return A response entity containing the order detail or an error message.
      */
     @GetMapping
     public ResponseEntity<GeneralMessageDto> getOrderDetail(
-            @RequestParam(required = false) Long productId, @RequestParam(required = false) Long orderId) {
+            @RequestParam() Long productId, @RequestParam() Long orderId,@RequestParam String code) {
         OrderDetailEmbeddedId orderDetailId = new OrderDetailEmbeddedId();
         orderDetailId.setOrderFk(orderId);
         orderDetailId.setProductFk(productId);
+        orderDetailId.setCode(code);
         GeneralMessageDto response = orderDetailService.getOrderDetail(orderDetailId);
         return ResponseEntity.status(response.isError() ? HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.OK).body(response);
     }
