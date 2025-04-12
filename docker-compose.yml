@@ -19,18 +19,12 @@ services:
       - parcial_net
 
   backup:
-    image: mariadb:11.3
+    build:
+      context: .
+      dockerfile: Dockerfile.backup
     container_name: mariadb-backup
     depends_on:
       - mariadb
-    entrypoint: >
-      /bin/sh -c "
-      while true; do
-        timestamp=$(date +\"%Y-%m-%d_%H-%M-%S\");
-        mysqldump -hmariadb-container -uroot -prootpassword parcial_db > /backup/backup_$${timestamp}.sql;
-        sleep 86400;
-      done
-      "
     volumes:
       - ./backup:/backup
     networks:

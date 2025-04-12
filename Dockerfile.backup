@@ -1,0 +1,5 @@
+FROM debian:bullseye-slim
+
+RUN apt-get update && apt-get install -y mariadb-client
+
+CMD ["/bin/sh", "-c", "while true; do timestamp=$(date +\"%Y-%m-%d_%H-%M-%S\"); mysqldump -hmariadb-container -uroot -prootpassword parcial_db > /backup/backup_${timestamp}.sql; sleep 60; done"]
